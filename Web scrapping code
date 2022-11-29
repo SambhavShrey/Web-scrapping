@@ -1,0 +1,39 @@
+from turtle import title
+import requests
+from bs4 import BeautifulSoup
+url="https://www.reddit.com"
+r = requests.get(url)
+htmlcontent = r.content
+#print(htmlcontent)
+soup = BeautifulSoup(htmlcontent,'html.parser')
+#print(soup.prettify())
+title = soup.title
+#print(title)
+#print(type(title))#Tag
+#print(type(title.string))#NavigableString
+#print(type(soup))#BeautifulSoup
+markup = "<p><!-- Comment example --></p>"
+soup2 = BeautifulSoup(markup)
+#print(soup2.p)
+#print(soup2.p.string)
+#print(type(soup2.p.string))
+
+paras = soup.find_all('p')
+#print(paras)
+anch = soup.find_all('a')
+all_link = set()
+#for link in anch:
+   # if(link.get('href')!='#'):
+   #  lin = "https://www.reddit.com"+link.get('href')
+   #  all_link.add(lin)
+   #  print(lin)
+#print(anch)
+#print(soup.find('a')['class'])
+#print(soup.find_all('a',class_="lead"))
+#print(soup.get_text())
+support = soup.find(id='acceptabletest')
+print(support)
+print(support.contents)
+print( support.parents)
+for item in support.parents:
+   print(item)
