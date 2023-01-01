@@ -1,0 +1,60 @@
+from turtle import title
+import requests
+from bs4 import BeautifulSoup
+url = input('enter a valid link : ')
+r = requests.get(url)
+htmlcontent = r.content
+soup = BeautifulSoup(htmlcontent,'html.parser')
+title = soup.title
+markup = "<p><!-- Comment example --></p>"
+soup2 = BeautifulSoup(markup)
+paras = soup.find_all('p')
+anch = soup.find_all('a')
+all_link = set()
+support = soup.find(id='acceptabletest')
+t=1
+while(t!=0):
+    t-=1
+    print("MENU")  
+    print("1. Print Html content")  
+    print("2. Print prettify soup content")  
+    print("3. Print title and commonly used object")  
+    print("4. print all link avaliable ")  
+    print("5. Search")  
+    print("6. Exit")
+    users_choice = int(input("\nEnter your Choice: "))
+   
+if users_choice == 1: 
+    print(htmlcontent)
+elif users_choice == 2:
+    print(soup.prettify())
+elif users_choice == 3: 
+    print(title)
+    print(type(title))#Tag
+    print(type(title.string))#NavigableString
+    print(type(soup))#BeautifulSoup
+    print(soup2.p)
+    print(soup2.p.string)
+    print(type(soup2.p.string))
+elif users_choice == 4:
+    f = open("test1.txt", "w")
+    for link in soup.find_all("a"):
+      data = link.get('href')
+      f.write(data)
+      f.write("\n")
+    f.close()
+elif  users_choice==5:
+    print(paras)
+    print(anch)
+    print(soup.find('a')['class'])
+    print(soup.find_all('a',class_="lead"))
+    print(soup.get_text())
+    print(support)
+    print(support.contents)
+    print( support.parents)
+    for item in support.parents:
+       print(item)     
+elif  users_choice==6:
+    exit
+else:  
+    print( "Please enter a valid Input from the list")
